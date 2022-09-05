@@ -20,10 +20,10 @@ public class Main {
                 System.out.println("-----Zadejte značku auta-----");
                 brand = sc.nextLine();
                 System.out.println("-----Zadejte naježděné kilometry auta-----");
-                totalKms = Integer.parseInt(sc.nextLine());;
+                totalKms = Integer.parseInt(sc.nextLine());
                 System.out.println("-----Zadejte cenu auta-----");
                 price = Integer.parseInt(sc.nextLine());
-                Car car = new Car(brand,totalKms,price);
+                Car car = new Car(brand, totalKms, price);
                 carsService.add(car);
                 carsRepository.saveCars(carsService.getAll());
                 System.out.println("-----Auto bylo přidáno-----");
@@ -32,18 +32,17 @@ public class Main {
                 System.out.println("");
 
             }
-            if (moznost == 2){
+            if (moznost == 2) {
                 String id = "";
                 System.out.println("Zadejte ID auta");
-                id = sc.nextLine();;
+                id = sc.nextLine();
                 carsService.remove(id);
                 carsRepository.saveCars(carsService.getAll());
                 System.out.println("Auto bylo smazáno");
                 carsRepository.loadCars();
             }
-            if (moznost == 3){
-                carsRepository.loadCars();
-                if (carsRepository.loadCars().size() <= 0){
+            if (moznost == 3) {
+                if (carsRepository.loadCars().size() <= 0) {
                     System.out.println("Nejsou zde žádná auta");
                 }
             }

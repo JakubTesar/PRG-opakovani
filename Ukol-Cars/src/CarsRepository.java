@@ -8,23 +8,24 @@ public class CarsRepository {
         ArrayList<Car> carsList = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader("C:\\Users\\NTBK\\Desktop\\GitHub\\PRG-opakovani\\Ukol-Cars\\src\\txt.txt");
+            fr = new FileReader(".\\Cars.txt");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         BufferedReader br = new BufferedReader(fr);
-        int i;
+        String strCurrentLine;
         try {
-            while ((i = br.read()) != -1) {
-                System.out.print((char) i);
+            while ((strCurrentLine = br.readLine()) != null) {
+                String[] carS = strCurrentLine.split(";");
+                Car car1 = new Car(carS[1],Integer.parseInt(carS[2]),Integer.parseInt(carS[3]));
+                System.out.println(strCurrentLine);
+                carsList.add(car1);
             }
             br.close();
             fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return carsList;
     }
 
@@ -32,7 +33,7 @@ public class CarsRepository {
         try {
             FileWriter writer = null;
             try {
-                writer = new FileWriter("C:\\Users\\NTBK\\Desktop\\GitHub\\PRG-opakovani\\Ukol-Cars\\src\\txt.txt");
+                writer = new FileWriter(".\\Cars.txt");
             } catch (IOException e) {
                 e.printStackTrace();
             }
