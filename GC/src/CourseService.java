@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class CourseService {
     public void addPost(Kurz kurz) {
@@ -32,11 +33,9 @@ public class CourseService {
             kurz.getList().add(ukol);
         }
     }
-
-    ;
-
-    public void removePost() {
-
+    public void removePost(String id, Kurz kurz) {
+        kurz.setList((ArrayList<EpicClass>) kurz.getList().stream()
+                .filter(i -> !i.getId().equals(i.getId())).collect(Collectors.toList())) ;
     }
 
     ;
