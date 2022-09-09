@@ -6,16 +6,17 @@ public class CourseRepository {
         ArrayList<EpicClass> list = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader(".\\Course.txt");
+            fr = new FileReader(".\\Course.csv");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         BufferedReader br = new BufferedReader(fr);
         String strCurrentLine;
         try {
+            br.readLine();
+
             while ((strCurrentLine = br.readLine()) != null) {
                 String[] splitS = strCurrentLine.split(";");
-
                 EpicClass temp;
                 switch (splitS[0]) {
                     case "Oznameni" -> temp = new Oznameni(splitS[3],Boolean.parseBoolean(splitS[4]),splitS[1]); //title, visible, obsah
