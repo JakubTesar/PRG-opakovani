@@ -7,6 +7,7 @@ public class Main {
         CarsRepository carsRepository = new CarsRepository();
         String programEnd = "ano";
         int moznost = 0;
+        carsService.setCarsList(carsRepository.loadCars());
         while (programEnd.equals("ano")) {
             System.out.println("-----Zdravím-----");
             System.out.println("-----Přidání auta (1)-----");
@@ -27,10 +28,7 @@ public class Main {
                 carsService.add(car);
                 carsRepository.saveCars(carsService.getAll());
                 System.out.println("-----Auto bylo přidáno-----");
-                System.out.println("");
-                carsRepository.loadCars();
-                System.out.println("");
-
+                System.out.println(car.getCarBrand() + " " + car.getPrice() + " " + car.getId());
             }
             if (moznost == 2) {
                 String id = "";
@@ -39,11 +37,14 @@ public class Main {
                 carsService.remove(id);
                 carsRepository.saveCars(carsService.getAll());
                 System.out.println("Auto bylo smazáno");
-                carsRepository.loadCars();
             }
             if (moznost == 3) {
                 if (carsRepository.loadCars().size() <= 0) {
                     System.out.println("Nejsou zde žádná auta");
+                } else {
+                    for (Car car: carsService.getAll()) {
+                        System.out.println(car.getCarBrand() + " " + car.getPrice() + " " + car.getId());
+                    }
                 }
             }
             System.out.println("Chcete pokračovat? ano / ne");
