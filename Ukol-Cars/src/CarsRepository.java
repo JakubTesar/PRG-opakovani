@@ -18,7 +18,6 @@ public class CarsRepository {
             while ((strCurrentLine = br.readLine()) != null) {
                 String[] carS = strCurrentLine.split(";");
                 Car car1 = new Car(carS[1],Integer.parseInt(carS[2]),Integer.parseInt(carS[3]));
-                System.out.println(strCurrentLine);
                 carsList.add(car1);
             }
             br.close();

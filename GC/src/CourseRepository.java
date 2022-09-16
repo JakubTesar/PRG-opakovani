@@ -6,22 +6,23 @@ public class CourseRepository {
         ArrayList<EpicClass> list = new ArrayList<>();
         FileReader fr = null;
         try {
-            fr = new FileReader(".\\Course.txt");
+            fr = new FileReader(".\\Course.csv");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         BufferedReader br = new BufferedReader(fr);
         String strCurrentLine;
         try {
+            br.readLine();
+
             while ((strCurrentLine = br.readLine()) != null) {
                 String[] splitS = strCurrentLine.split(";");
-
                 EpicClass temp;
                 switch (splitS[0]) {
-                    case "Oznameni" -> temp = new Oznameni();
-                    case "Material" -> temp = new Material();
-                    case "Ukol" -> temp = new Ukol();
-                    default -> temp = new EpicClass();
+                    case "Oznameni" -> temp = new Oznameni(splitS[3],Boolean.parseBoolean(splitS[4]),splitS[1]); //title, visible, obsah
+                    case "Material" -> temp = new Material(splitS[3],Boolean.parseBoolean(splitS[4]),splitS[1]);
+                    case "Ukol" -> temp = new Ukol(splitS[3],Boolean.parseBoolean(splitS[4]),splitS[1]);
+                    default -> temp = new EpicClass(splitS[3],Boolean.parseBoolean(splitS[4]));
                 }
 
                 list.add(temp);
@@ -45,6 +46,8 @@ public class CourseRepository {
                 e.printStackTrace();
             }
             BufferedWriter buffer = new BufferedWriter(writer);
+            buffer.write(name + " " + description);
+            buffer.newLine();
             for (EpicClass object : list) {
                 //(car.getId() + ";" + car.getCarBrand() + ";" + car.getTotalKms() + ";" + car.getPrice())
                 if (object instanceof Oznameni) {

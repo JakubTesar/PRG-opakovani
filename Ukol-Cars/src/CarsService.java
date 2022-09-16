@@ -9,9 +9,13 @@ public class CarsService {
     }
     public void remove(String id){
         carsList = (ArrayList<Car>) carsList.stream()
-                .filter(i -> !i.getId().equals(i.getId())).collect(Collectors.toList());
+                .filter(i -> !i.getId().equals(id)).collect(Collectors.toList());
     }
     public ArrayList<Car> getAll(){
         return carsList;
+    }
+
+    public void setCarsList(ArrayList<Car> carsList) {
+        this.carsList = carsList;
     }
 }

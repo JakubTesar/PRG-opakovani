@@ -1,9 +1,11 @@
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class EpicClass {
     private String timeAdd = LocalDateTime.now().toString();
     private String title;
     private boolean visibleForStudents;
+    private String id = UUID.randomUUID().toString();
 
 
     public EpicClass( String title, boolean visibleForStudents) {
@@ -22,4 +24,10 @@ public class EpicClass {
     public boolean isVisibleForStudents() {
         return visibleForStudents;
     }
+
+    public String getId() {
+
+        return id;
+    }
+
 }
