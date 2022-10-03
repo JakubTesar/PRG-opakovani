@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
+</h:head>
+<h:body styleClass="bg-dark text-white">
+    <h1>CRM</h1>
+    <div class="d-flex justify-content-center flex-column w-100">
+        <div class="d-flex justify-content-center">
+
+            <div class="bold d-flex border-bottom justify-content-center w-50">
+                <div class="p-2 ml-4 w-25">#</div>
+                <div class="p-2 ml-4 w-25">Jméno</div>
+                <div class="p-2 ml-4 w-25">Příjmení</div>
+                <div class="p-2 ml-4 w-25">Věk</div>
+                <div class="p-2 ml-4 w-50">Dlouholetý klient</div>
+                <div class="p-2 ml-4 w-25">Smazat</div>
+            </div>
+        </div>
+        <ui:repeat var="user1" value="#{crm.users}" varStatus="i">
+            <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center border-bottom  w-50">
+                    <div class="p-2 ml-4 w-25">#{(i.index+1)}</div>
+                    <div class="p-2 ml-4 w-25">#{user1.firstName}</div>
+                    <div class="p-2 ml-4 w-25">#{user1.secondName}</div>
+                    <div class="p-2 ml-4 w-25">#{user1.age}</div>
+                    <div class="p-2 ml-4 w-50">#{user1.longTimeClient}</div>
+                    <h:form class="p-2 ml-4 w-25">
+                        <h:commandButton action="#{crm.removeUser(i.index)}" class="btn btn-dark"
+                                         value="💣"/>
+                    </h:form>
+                </div>
+            </div>
+        </ui:repeat>
+        <div class="d-flex justify-content-center m-5">
+            <h:link type="button" value="Create User" class="btn btn btn-light" outcome="createUser.xhtml"/>
+        </div>
+    </div>
+
+</h:body>
+</html>
