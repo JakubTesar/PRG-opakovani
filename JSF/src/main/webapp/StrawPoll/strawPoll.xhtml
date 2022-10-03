@@ -14,26 +14,14 @@
 
     <div class="d-flex w-50 justify-content-center">
         <div class="d-flex justify-content-center">
+            <ui:repeat var="pokemon1" value="#{counter.pokemon}" varStatus="i">
             <h:form class=" ml-5">
-                <h:commandButton action="#{counter.counterPlus(counter.pokemon.get(0))}" styleClass="bg-dark border-0" style="background-image: url('./001.png'); width: 100px; height: 100px; background-size: cover">
-                    <h2 class="w-25">Bulbasaur #{counter.pokemon.get(0).counter}</h2>
+                <h:commandButton action="#{counter.counterPlus(pokemon1)}" styleClass="bg-dark border-0"
+                                 style="background-image: url(#{pokemon1.image}); width: 100px; height: 100px; background-size: cover">
+                    <h2 class="w-25">#{pokemon1.name} #{pokemon1.counter}</h2>
                 </h:commandButton>
             </h:form>
-            <h:form class="ml-5">
-                <h:commandButton action="#{counter.counterPlus(counter.pokemon.get(1))}" styleClass="bg-dark border-0" style="background-image: url('./004.png'); width: 100px; height: 100px; background-size: cover">
-                    <h2 class="w-25">Charmander #{counter.pokemon.get(1).counter}</h2>
-                </h:commandButton>
-            </h:form>
-            <h:form class="ml-5">
-                <h:commandButton action="#{counter.counterPlus(counter.pokemon.get(2))}" styleClass="bg-dark border-0" style="background-image: url('./007.png'); width: 100px; height: 100px; background-size: cover">
-                    <h2 class="w-25">Squirtle #{counter.pokemon.get(2).counter}</h2>
-                </h:commandButton>
-            </h:form>
-            <h:form class="ml-5">
-                <h:commandButton action="#{counter.counterPlus(counter.pokemon.get(3))}" styleClass="bg-dark border-0" style="background-image: url('./010.png'); width: 100px; height: 100px; background-size: cover">
-                    <h2 class="w-25">Caterpie #{counter.pokemon.get(3).counter}</h2>
-                </h:commandButton>
-            </h:form>
+            </ui:repeat>
         </div>
     </div>
 </h:body>

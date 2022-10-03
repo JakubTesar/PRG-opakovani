@@ -10,24 +10,27 @@ import java.util.ArrayList;
 @Named
 
 public class Counter {
+
     private ArrayList<Pokemon> pokemon = new ArrayList<>();
 
-    public ArrayList<Pokemon> getPokemon() {
-        return pokemon;
-    }
-
-    public void counterPlus(Pokemon pokemon1){
-        pokemon1.setCounter(pokemon1.getCounter()+1);
-    }
-
-    public void start(){
-        Pokemon pokemon1 = new Pokemon("Bulbasaur", 0);
-        Pokemon pokemon2 = new Pokemon("Charmander", 0);
-        Pokemon pokemon3 = new Pokemon("Squirtle", 0);
-        Pokemon pokemon4 = new Pokemon("Caterpie", 0);
+    public Counter() {
+        Pokemon pokemon1 = new Pokemon("Bulbasaur", 0, "'./001.png'");
+        Pokemon pokemon2 = new Pokemon("Charmander", 0,"'./004.png'");
+        Pokemon pokemon3 = new Pokemon("Squirtle", 0,"'./007.png'");
+        Pokemon pokemon4 = new Pokemon("Caterpie", 0,"'./010.png'");
         pokemon.add(pokemon1);
         pokemon.add(pokemon2);
         pokemon.add(pokemon3);
         pokemon.add(pokemon4);
     }
+
+    public ArrayList<Pokemon> getPokemon() {
+        return pokemon;
+    }
+
+    public void counterPlus(Pokemon pokemon1) {
+        pokemon1.setCounter(pokemon1.getCounter() + 1);
+    }
+
+
 }
