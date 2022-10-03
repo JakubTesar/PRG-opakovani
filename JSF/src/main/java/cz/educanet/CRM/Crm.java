@@ -1,7 +1,6 @@
-package cz.educanet;
+package cz.educanet.CRM;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 import java.util.ArrayList;

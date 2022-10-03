@@ -1,3 +1,5 @@
-cz\educanet\Crm.class
-cz\educanet\Number.class
-cz\educanet\User.class
+cz\educanet\Calculator\Number.class
+cz\educanet\StrawPoll\Pokemon.class
+cz\educanet\CRM\Crm.class
+cz\educanet\StrawPoll\Counter.class
+cz\educanet\CRM\User.class

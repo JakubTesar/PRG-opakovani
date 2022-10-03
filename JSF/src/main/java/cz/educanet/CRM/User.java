@@ -1,4 +1,4 @@
-package cz.educanet;
+package cz.educanet.CRM;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
