@@ -13,12 +13,13 @@ public class SmazakUser {
     private String city;
     private int postCode;
 
-    public void saveUser(String name, String Adress, String City, int PostCode){
+    public String saveUser(String name, String Adress, String City, int PostCode){
         smazakUser = new SmazakUser();
         smazakUser.setName(name);
         smazakUser.setAdress(adress);
         smazakUser.setCity(city);
         smazakUser.setPostCode(postCode);
+        return "./Smažák/showSmazak.xhtml";
     }
     public String getName() {
         return name;

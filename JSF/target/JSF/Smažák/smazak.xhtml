@@ -14,7 +14,6 @@
     <h:form styleClass="form-group">
         <h:outputLabel styleClass="mx-5 my-2">Jméno</h:outputLabel>
         <h:inputText styleClass="form-control mx-5 my-2 w-50 bg-warning" value="#{smazakUser.name}"/>
-
         <h:outputLabel styleClass="mx-5 my-2">Adresa</h:outputLabel>
         <h:inputText styleClass="form-control mx-5 my-2 w-50 bg-warning" value="#{smazakUser.adress}"/>
         <h:outputLabel styleClass="mx-5 my-2">Město</h:outputLabel>
@@ -24,8 +23,10 @@
 
         <h:commandButton styleClass="btn btn-primary mx-5 my-2"
                          action="#{smazakUser.saveUser(smazakUser.name, smazakUser.adress,smazakUser.city, smazakUser.postCode)}"
-                         value="Objednat"><h:link type="button" value="Back to CRM" class="btn btn btn-light"
-                                                  outcome="CRM.xhtml"/></h:commandButton>
+                         value="Objednat" outcome="CRM.xhtml">
+        </h:commandButton>
+        <h:link type="button" value="Back to CRM" class="btn btn btn-light"
+                outcome="showSmazak.xhtml"/>
     </h:form>
 </h:body>
 </html>
