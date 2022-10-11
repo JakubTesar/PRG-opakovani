@@ -19,11 +19,37 @@
          <h:inputText styleClass="form-control mx-5 my-2 w-50" value="#{teamBuilder.playersInput}"/>
 
          <h:outputLabel styleClass="mx-5 my-2">Number of teams</h:outputLabel>
-         <h:inputText type="number" styleClass="form-control mx-5 my-2 w-50" value="#{teamBuilder.teamsN}"/>
+         <h:inputText  styleClass="form-control mx-5 my-2 w-50" value="#{teamBuilder.teamsN}"/>
 
          <h:commandButton styleClass="btn btn-primary mx-5 my-2"
                           action="#{teamBuilder.createTeams()}" value="Send"/>
       </h:form>
+
+       <h2>#{teamBuilder.playersInput}</h2>
+       <h2>#{teamBuilder.teamsN}</h2>
+
+      <ui:repeat var="team" value="#{teamBuilder.teamArrayList}" varStatus="i">
+         <ul>
+            <li>Team #{i.index+1}</li>
+            <ui:repeat var="player" value="#{team.teamPlayer}" varStatus="i">
+               <ul>
+                  <li>#{player}</li>
+               </ul>
+            </ui:repeat>
+         </ul>
+      </ui:repeat>
+      <ui:repeat value="#{teamBuilder.teamArrayList}" var="team" varStatus="i">
+      <tbody>
+      <tr>
+      <td>Team #{i.index+1}</td>
+      <td>
+         <ui:repeat value="#{team.teamPlayer}" var="player">
+            #{player}
+         </ui:repeat>
+      </td>
+       </tr>
+       </tbody>
+      </ui:repeat>
    </div>
 
 </h:body>

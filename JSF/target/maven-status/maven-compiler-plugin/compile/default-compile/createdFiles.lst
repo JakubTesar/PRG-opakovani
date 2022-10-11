@@ -4,5 +4,5 @@ cz\educanet\CRM\Crm.class
 cz\educanet\Smazak\SmazakUser.class
 cz\educanet\StrawPoll\Counter.class
 cz\educanet\CRM\User.class
-cz\educanet\teamBuilder\Team.class
-cz\educanet\teamBuilder\TeamBuilder.class
+cz\educanet\TeamBuilder\Team.class
+cz\educanet\TeamBuilder\TeamBuilder.class

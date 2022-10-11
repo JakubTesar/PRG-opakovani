@@ -12,23 +12,27 @@ import java.util.Random;
 @Named
 
 public class TeamBuilder {
-    private ArrayList<Team> teamArrayList;
+    private ArrayList<Team> teamArrayList = new ArrayList<>();
     private int teamsN;
     private String playersInput;
 
+    //cz.educanet.TeamBuilder.Team.getTeamPlayer()"
     public void createTeams() {
         String[] a = playersInput.split(",");
+        ArrayList<String> list = new ArrayList<>();
+
         for (int i = 0; i < a.length; i++) {
             Team team = new Team();
             Random rand = new Random();
-            if (i == (a.length / teamsN)){
-                team.getTeamPlayer().add(a[rand.nextInt(teamsN)]);
-            }
-        }
-    }
+            list.add(a[i]);
+           // if (i == (a.length / teamsN)) {
+                team.getTeamPlayer().add(a[i]);
+                team.setTeamPlayer(list);
+            //}
+            teamArrayList.add(team);
 
-    public TeamBuilder() {
-        this.teamArrayList = new ArrayList<>();
+        }
+
     }
 
     public ArrayList<Team> getTeamArrayList() {
