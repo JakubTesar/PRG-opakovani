@@ -20,6 +20,7 @@ public class TeamBuilder {
     public void createTeams() {
         String[] inputS = playersInput.split(",");
         ArrayList<String> lidi = new ArrayList<>(Arrays.asList(inputS));
+        lidi.stream().map(String::trim).collect(toList());
         Collections.shuffle(lidi);
         int count = 0;
         for (int i = 0; i < teamsN; i++) {
