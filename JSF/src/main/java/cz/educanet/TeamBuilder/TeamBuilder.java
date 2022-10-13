@@ -2,11 +2,11 @@ package cz.educanet.TeamBuilder;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import jdk.jfr.Name;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 @ApplicationScoped
 @Named
@@ -14,28 +14,26 @@ import java.util.Random;
 public class TeamBuilder {
     private ArrayList<Team> teamArrayList = new ArrayList<>();
     private int teamsN;
-    private String playersInput;
+    private String playersInput = "";
 
     //cz.educanet.TeamBuilder.Team.getTeamPlayer()"
     public void createTeams() {
-        String[] a = playersInput.split(",");
-        ArrayList<String> list = new ArrayList<>();
-
-        for (int i = 0; i < a.length; i++) {
+        String[] inputS = playersInput.split(",");
+        ArrayList<String> lidi = new ArrayList<>(Arrays.asList(inputS));
+        Collections.shuffle(lidi);
+        int count = 0;
+        for (int i = 0; i < teamsN; i++) {
             Team team = new Team();
-            Random rand = new Random();
-            list.add(a[i]);
-           // if (i == (a.length / teamsN)) {
-                team.getTeamPlayer().add(a[i]);
-                team.setTeamPlayer(list);
-            //}
             teamArrayList.add(team);
-
+            for (int j = 0; j < (inputS.length/teamsN); j++) {
+                teamArrayList.get(i).getTeamPlayer().add(lidi.get(count));
+                count++;
+            }
         }
-
     }
 
     public ArrayList<Team> getTeamArrayList() {
+        createTeams();
         return teamArrayList;
     }
 
