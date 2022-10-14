@@ -6,3 +6,7 @@ cz\educanet\StrawPoll\Counter.class
 cz\educanet\CRM\User.class
 cz\educanet\TeamBuilder\Team.class
 cz\educanet\TeamBuilder\TeamBuilder.class
+cz\educanet\QuickMath\Sample.class
+cz\educanet\QuickMath\Quickmath.class
+cz\educanet\QuickMath\UserQuick.class
+cz\educanet\TeamBuilder\Main.class
