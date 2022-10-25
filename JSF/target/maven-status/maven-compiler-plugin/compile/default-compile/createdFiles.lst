@@ -1,12 +1,14 @@
+cz\educanet\Factorial\Factorial.class
 cz\educanet\Calculator\Number.class
 cz\educanet\StrawPoll\Pokemon.class
-cz\educanet\CRM\Crm.class
 cz\educanet\Smazak\SmazakUser.class
 cz\educanet\StrawPoll\Counter.class
 cz\educanet\CRM\User.class
 cz\educanet\TeamBuilder\Team.class
 cz\educanet\TeamBuilder\TeamBuilder.class
 cz\educanet\QuickMath\Sample.class
-cz\educanet\QuickMath\Quickmath.class
 cz\educanet\QuickMath\UserQuick.class
+cz\educanet\CRM\Crm.class
+cz\educanet\Factorial\Pog.class
+cz\educanet\QuickMath\Quickmath.class
 cz\educanet\TeamBuilder\Main.class
