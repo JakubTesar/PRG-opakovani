@@ -7,8 +7,10 @@ cz\educanet\CRM\User.class
 cz\educanet\TeamBuilder\Team.class
 cz\educanet\TeamBuilder\TeamBuilder.class
 cz\educanet\QuickMath\Sample.class
+cz\educanet\TodoList\todoList.class
 cz\educanet\QuickMath\UserQuick.class
 cz\educanet\CRM\Crm.class
+cz\educanet\TodoList\Task.class
 cz\educanet\Factorial\Pog.class
 cz\educanet\QuickMath\Quickmath.class
 cz\educanet\TeamBuilder\Main.class
