@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class Pog {
     private ArrayList<Factorial> listFac = new ArrayList<>();
 
-
     public ArrayList<Factorial> getListFac() {
         return listFac;
     }

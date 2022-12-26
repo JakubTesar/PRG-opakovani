@@ -16,10 +16,10 @@
 
             <h:form styleClass="form-group">
                 <h2>Add new task</h2>
-                <h:outputLabel styleClass="mx-5 my-2">Task name:</h:outputLabel>
+                <h:outputLabel styleClass="mx-1 my-2">Task name:</h:outputLabel>
                 <h:inputText styleClass="form-control mx-5 my-2 w-50" value="#{todoList.taskName}"/>
 
-                <h:commandButton styleClass="btn btn-primary mx-5 my-2" action="#{todoList.addTask(todoList.taskName)}"
+                <h:commandButton styleClass="btn btn-primary mx-1 my-2" action="#{todoList.addTask(todoList.taskName)}"
                                  value="Add a new task"/>
             </h:form>
             <div>

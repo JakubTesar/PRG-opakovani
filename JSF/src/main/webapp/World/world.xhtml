@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:outputLabel value="Hello, world"/>
+</f:view>
+
+<h:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../TodoList/styleWorld.css"/>
+</h:head>
+<h:body styleClass="bg-dark text-white">
+    <h1><span class="text-info">World</span>List.io</h1>
+    <h:form>
+        <div class="d-flex">
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Name</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2 " value="#{worldsBean.name}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Area</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Capital</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Flag</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Continent</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Gdp</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Tld</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+            <div class="d-flex flex-column mx-1">
+                <h:outputLabel styleClass="mx-1 my-2">Population</h:outputLabel>
+                <h:inputText styleClass="form-control mx-1 my-2" value="#{todoList.taskName}"/>
+            </div>
+        </div>
+        <div>
+            <h:commandButton styleClass="btn btn-primary mx-5 my-2" action="#{worldsBean.filterList()}"
+                             value="Filter"/>
+        </div>
+    </h:form>
+    <table class="table table-striped table-dark">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Area</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Flag</th>
+            <th scope="col">Continent</th>
+            <th scope="col">Gdp</th>
+            <th scope="col">Tld</th>
+            <th scope="col">Population</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ui:repeat value="#{worldsBean.wolds}" var="w">
+            <tr>
+                <th scope="row"></th>
+                <td>#{w.name}</td>
+                <td>#{w.area}</td>
+                <td>#{w.capital}</td>
+                <td><img src="#{w.flag}" alt="MissingIMG"/></td>
+                <td>#{w.continent}</td>
+                <td>#{w.gdp}</td>
+                <td>#{w.tld}</td>
+                <td>#{w.population}</td>
+            </tr>
+        </ui:repeat>
+        </tbody>
+    </table>
+</h:body>
+</html>
+
