@@ -20,6 +20,7 @@ cz\educanet\Euro2012\Team.class
 cz\educanet\gapminder\GapminderService.class
 cz\educanet\World\beans\World.class
 cz\educanet\World\beans\WorldsBean.class
+cz\educanet\gapminder\Continent.class
 cz\educanet\gapminder\GapminderRepository.class
 cz\educanet\QuickMath\Quickmath.class
 cz\educanet\TeamBuilder\Main.class

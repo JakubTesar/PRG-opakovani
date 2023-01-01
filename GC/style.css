@@ -1,0 +1,17 @@
+
+
+
+.div{
+    width: 100px;
+    height: 100px;
+    background-color: aqua;
+    animation: mymove 5s;
+}
+
+@keyframes mymove {
+    0% { border-top: solid crimson 5px;
+    }
+    100% {
+        transform: rotate(1turn);
+    }
+}

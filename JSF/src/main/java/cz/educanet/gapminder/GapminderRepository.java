@@ -7,15 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Named
-@ApplicationScoped
+
 public class GapminderRepository {
     private List<GapminderBean> gM = new ArrayList<>();
-
     public List<GapminderBean> getGM() {
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mariadb://localhost:3309/gapminder?user=root&password=heslo");
+                        "jdbc:mariadb://localhost:3306/gapminder?user=root&password=");
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM gapminder")
         ) {
