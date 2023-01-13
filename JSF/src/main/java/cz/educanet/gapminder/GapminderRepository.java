@@ -13,7 +13,7 @@ public class GapminderRepository {
     public List<GapminderBean> getGM() {
         try (
                 Connection connection = DriverManager.getConnection(
-                        "jdbc:mariadb://localhost:3306/gapminder?user=root&password=");
+                        "jdbc:mariadb://localhost:3309/gapminder?user=root&password=heslo");
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM gapminder")
         ) {

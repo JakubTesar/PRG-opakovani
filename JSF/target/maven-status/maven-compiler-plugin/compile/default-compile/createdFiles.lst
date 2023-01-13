@@ -1,12 +1,15 @@
 cz\educanet\StrawPoll\Pokemon.class
+cz\educanet\Hero\HeroBean.class
 cz\educanet\Smazak\SmazakUser.class
 cz\educanet\CRM\User.class
 cz\educanet\TeamBuilder\TeamBuilder.class
+cz\educanet\Kchul_Zoo\ZooRepository.class
 cz\educanet\QuickMath\Sample.class
 cz\educanet\Euro2012\TeamService.class
 cz\educanet\TodoList\todoList.class
 cz\educanet\Euro2012\Goal.class
 cz\educanet\QuickMath\UserQuick.class
+cz\educanet\Kchul_Zoo\ZooBean.class
 cz\educanet\CRM\Crm.class
 cz\educanet\TodoList\Task.class
 cz\educanet\Factorial\Pog.class
@@ -15,6 +18,7 @@ cz\educanet\Factorial\Factorial.class
 cz\educanet\Calculator\Number.class
 cz\educanet\StrawPoll\Counter.class
 cz\educanet\TeamBuilder\Team.class
+cz\educanet\Hero\Hero.class
 cz\educanet\Euro2012\Game.class
 cz\educanet\Euro2012\Team.class
 cz\educanet\gapminder\GapminderService.class
@@ -22,5 +26,6 @@ cz\educanet\World\beans\World.class
 cz\educanet\World\beans\WorldsBean.class
 cz\educanet\gapminder\Continent.class
 cz\educanet\gapminder\GapminderRepository.class
+cz\educanet\Kchul_Zoo\ZooService.class
 cz\educanet\QuickMath\Quickmath.class
 cz\educanet\TeamBuilder\Main.class
