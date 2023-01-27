@@ -17,7 +17,7 @@ import java.util.Locale;
 @ApplicationScoped
 
 public class Quickmath {
-    private final UserQuick tempUser = new UserQuick();
+   /* private final UserQuick tempUser = new UserQuick();
     private String tempNick;
     private ArrayList<UserQuick> users = new ArrayList<>();
     private ArrayList<Sample> samples = new ArrayList<>();
@@ -97,5 +97,5 @@ public class Quickmath {
 
     public void setPage(String page) {
         this.page = page;
-    }
+    }*/
 }

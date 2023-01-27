@@ -3,7 +3,7 @@ package cz.educanet.QuickMath;
 import java.util.Random;
 
 public class Sample {
-    Random random = new Random();
+   /* Random random = new Random();
     private int x = random.nextInt(1, 100);
 
     private int y = random.nextInt(1, 100);
@@ -41,5 +41,5 @@ public class Sample {
 
     public void setAnswer(int answer) {
         this.answer = answer;
-    }
+    }*/
 }
