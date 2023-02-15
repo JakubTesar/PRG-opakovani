@@ -58,16 +58,36 @@ public class StockBean {
 
     public void deleteStock(int id) {
         try (
-                Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "DELETE FROM stock_market.stock_market " +
-                                "WHERE stock_market_id = ?;")) {
-            preparedStatement.setInt(1, id);
-            Boolean ok = preparedStatement.execute();
-
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "DELETE FROM stock_market.`order` " +
+                                "WHERE `order`.stock_market_id = ?;")) {
+            pS.setInt(1, id);
+            pS.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "DELETE FROM stock_market.trade " +
+                                "WHERE trade.stock_market_id = ?;")) {
+            pS.setInt(1, id);
+            pS.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "DELETE FROM stock_market.stock_market " +
+                                "WHERE stock_market_id = ?;")) {
+            pS.setInt(1, id);
+            pS.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void updateStock(String ticker, String desc) {

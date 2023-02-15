@@ -31,6 +31,7 @@
                 <th scope="col">Delete</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Detail</th>
+                <th scope="col">Trades</th>
             </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                     <td>#{st.stockMarketID}</td>
                     <td>#{st.tickerSymbol}</td>
                     <td>#{st.descriptiveName}</td>
+                    <td>#{tradeBean.getLastTradeOfStock(st.stockMarketID).price}</td>
                     <td>
                         <h:form class="p-2 ml-4 w-25">
                             <h:commandButton action="#{stockBean.deleteStock(st.stockMarketID)}" class="btn btn-danger"
@@ -51,7 +53,6 @@
                                 <f:param name="stockMarketID" value="#{st.stockMarketID}"/>
                             </h:link>
                         </div>
-
                     </td>
                     <td>
                         <div class="p-2 ml-4 w-25">
@@ -59,7 +60,13 @@
                                 <f:param name="stockMarketID" value="#{st.stockMarketID}"/>
                             </h:link>
                         </div>
-
+                    </td>
+                    <td>
+                        <div class="p-2 ml-4 w-25">
+                            <h:link styleClass="btn btn-info " outcome="trades.xhtml" value="Trades">
+                                <f:param name="stockMarketID" value="#{st.stockMarketID}"/>
+                            </h:link>
+                        </div>
                     </td>
                 </tr>
             </ui:repeat>

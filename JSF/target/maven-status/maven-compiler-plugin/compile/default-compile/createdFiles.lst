@@ -28,6 +28,7 @@ cz\educanet\Euro2012\Team.class
 cz\educanet\gapminder\GapminderService.class
 cz\educanet\World\beans\World.class
 cz\educanet\World\beans\WorldsBean.class
+cz\educanet\Stock\TradeBean.class
 cz\educanet\gapminder\Continent.class
 cz\educanet\gapminder\GapminderRepository.class
 cz\educanet\Kchul_Zoo\ZooService.class
