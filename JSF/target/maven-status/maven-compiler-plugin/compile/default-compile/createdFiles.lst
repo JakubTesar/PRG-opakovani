@@ -20,6 +20,7 @@ cz\educanet\gapminder\GapminderBean.class
 cz\educanet\Factorial\Factorial.class
 cz\educanet\Stock\StockBean.class
 cz\educanet\Calculator\Number.class
+cz\educanet\Twitter\Tweet.class
 cz\educanet\StrawPoll\Counter.class
 cz\educanet\TeamBuilder\Team.class
 cz\educanet\Hero\Hero.class
@@ -29,6 +30,7 @@ cz\educanet\gapminder\GapminderService.class
 cz\educanet\World\beans\World.class
 cz\educanet\World\beans\WorldsBean.class
 cz\educanet\Stock\TradeBean.class
+cz\educanet\Twitter\TweetBean.class
 cz\educanet\gapminder\Continent.class
 cz\educanet\gapminder\GapminderRepository.class
 cz\educanet\Kchul_Zoo\ZooService.class

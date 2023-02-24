@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
+</h:head>
+<h:body styleClass="bg-dark text-white">
+    <div class="m-5 d-flex flex-wrap">
+        <h:form>
+            <h:outputLabel value="Content"></h:outputLabel>
+            <h:inputText styleClass="form-control" value="#{tweet.content}"></h:inputText>
+            <h:outputLabel value="Author"></h:outputLabel>
+            <h:inputText styleClass="form-control" value="#{tweet.author}"></h:inputText>
+            <h:commandButton styleClass="btn btn-info m-1" value="Create"
+                             action="#{tweetBean.createTweet(tweet.content, tweet.author)}">
+            </h:commandButton>
+        </h:form>
+    </div>
+    <div class="m-5">
+        <table class="table table-striped table-dark">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Content</th>
+                <th scope="col">Author</th>
+                <th scope="col">Likes</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ui:repeat value="#{tweetBean.tweets}" var="t">
+                <tr>
+                    <td>#{t.tweetID}</td>
+                    <td>#{t.createdAt}</td>
+                    <td>#{t.content}</td>
+                    <td>#{t.author}</td>
+                    <td>#{t.likes}</td>
+                    <td>
+                        <h:form class="p-2 ml-4 w-25">
+                            <h:commandButton action="#{tweetBean.deleteTweet(t.tweetID)}" class="btn btn-danger"
+                                             value="💣"/>
+                        </h:form>
+                    </td>
+                    <td>
+                        <div class="p-2 ml-4 w-25">
+                            <h:link styleClass="btn btn-warning " outcome="edit.xhtml" value="✏">
+                                <f:param name="tweetID" value="#{t.tweetID}"/>
+                            </h:link>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 ml-4 w-25">
+                            <h:form>
+                                <h:commandButton action="#{tweetBean.addLike(t.tweetID)}" class="btn btn-success"
+                                                 value="❤"/>
+                            </h:form>
+                        </div>
+                    </td>
+                </tr>
+            </ui:repeat>
+            </tbody>
+        </table>
+    </div>
+</h:body>
+</html>
