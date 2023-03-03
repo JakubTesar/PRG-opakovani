@@ -2,6 +2,7 @@ cz\educanet\Stock\OrderBean.class
 cz\educanet\StrawPoll\Pokemon.class
 cz\educanet\Hero\HeroBean.class
 cz\educanet\Smazak\SmazakUser.class
+cz\educanet\Users\LoginUser.class
 cz\educanet\CRM\User.class
 cz\educanet\TeamBuilder\TeamBuilder.class
 cz\educanet\Kchul_Zoo\ZooRepository.class

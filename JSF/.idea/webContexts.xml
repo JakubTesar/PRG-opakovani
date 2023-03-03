@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/TeamBuilder/teamBuilder.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/TeamBuilder" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/TodoList/todoList.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/TodoList" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/Users/login.xhtml" value="file://$PROJECT_DIR$/src/main/webapp/Users" />
       </map>
     </option>
   </component>

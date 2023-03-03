@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
+</h:head>
+<h:body styleClass="bg-dark text-white">
+    <div class="m-5 d-flex flex-wrap gap-3">
+        <h:link styleClass="btn btn-primary " outcome="register.xhtml" value="Register"></h:link>
+        <h:link styleClass="btn btn-primary " outcome="login.xhtml" value="Login"></h:link>
+        <c:if test="#{usersBean.loginUser.logged}">
+            <h:link styleClass="btn btn-primary " outcome="secret.xhtml" value="Secret"></h:link>
+        </c:if>
+        <c:if test="#{!usersBean.loginUser.logged}">
+            <h:link styleClass="btn btn-danger" outcome="login.xhtml" value="Secret"></h:link>
+        </c:if>
+    </div>
+</h:body>
+</html>
