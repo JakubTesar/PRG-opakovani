@@ -13,11 +13,17 @@
         <h:link styleClass="btn btn-primary " outcome="register.xhtml" value="Register"></h:link>
         <h:link styleClass="btn btn-primary " outcome="login.xhtml" value="Login"></h:link>
         <c:if test="#{usersBean.loginUser.logged}">
-            <h:link styleClass="btn btn-primary " outcome="secret.xhtml" value="Secret"></h:link>
+            <h:link styleClass="btn btn-success" outcome="secret.xhtml" value="Secret"></h:link>
+            <h3>#{usersBean.loginUser.fullName}</h3>
+            <h3>#{usersBean.loginUser.email}</h3>
         </c:if>
         <c:if test="#{!usersBean.loginUser.logged}">
             <h:link styleClass="btn btn-danger" outcome="login.xhtml" value="Secret"></h:link>
         </c:if>
+        <h:form>
+            <h:commandButton styleClass="btn btn-warning" value="Logout"
+                             action="#{usersBean.logout()}"></h:commandButton>
+        </h:form>
     </div>
 </h:body>
 </html>

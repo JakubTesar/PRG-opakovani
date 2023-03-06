@@ -1,5 +1,6 @@
 package cz.educanet.Users;
 
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -55,7 +56,12 @@ public class UsersBean implements Serializable {
             throw new RuntimeException(e);
         }
     }
+    public void logout() {
+       this.loginUser = null;
+    }
+
     public LoginUser getLoginUser() {
+
         return loginUser;
     }
 }
