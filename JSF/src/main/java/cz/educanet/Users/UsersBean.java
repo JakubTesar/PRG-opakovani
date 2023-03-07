@@ -2,9 +2,11 @@ package cz.educanet.Users;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -14,6 +16,16 @@ import java.time.LocalDateTime;
 public class UsersBean implements Serializable {
     private LoginUser loginUser = new LoginUser();
     private final String salt = "6974885Nk_nd.%efů!){[[420*-+";
+
+    public boolean before() throws IOException {
+        if (loginUser.isLogged()){
+            return true;
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            return false;
+        }
+    }
+
     public void createUserAuthen(String name, String password, String email) {
         try (
                 Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/users?user=root&password=heslo");
@@ -57,7 +69,7 @@ public class UsersBean implements Serializable {
         }
     }
     public void logout() {
-       this.loginUser = null;
+       this.loginUser = new LoginUser();
     }
 
     public LoginUser getLoginUser() {
