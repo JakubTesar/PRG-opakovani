@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
 </h:head>
 <h:body styleClass="bg-dark text-white">
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-gray text-white mb-5">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-gray text-white mb-5 mx-5">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,24 +27,29 @@
                                      action="#{usersBean.logout()}"></h:commandButton>
                 </h:form>
                 <li class="nav-item">
-                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="Secret"></h:link>
+                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="👤"></h:link>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="m-5 d-flex flex-wrap gap-3">
-        <ui:repeat value="" var="ask">
-            <div>
-                <h:link styleClass="" outcome="profile.xhtml" value="Author:"></h:link>
-              <!--   <div>
-                    <h3>Question:</h3>
-                    <div>#{ask.question}</div>
-                </div>
-                <div>
-                    <h3>Answer:</h3>
-                    <div>#{ask.answer}</div>
-                </div>
-                -->
+
+        <h2 class="d-block">Ask somebody</h2>
+        <h:form>
+            <h:outputLabel value="For"></h:outputLabel>
+            <h:inputText type="email" styleClass="form-control" value="#{question.targetId}"></h:inputText>
+            <h:outputLabel styleClass="mt-3" value="Question"></h:outputLabel>
+            <h:inputText styleClass="form-control" value="#{question.question}"></h:inputText>
+
+            <h:commandButton styleClass="btn btn-success mt-3" value="Create question"
+                             action="#{repository.createQuestion(question.targetId, service.loginUser.userId, question.question)}"></h:commandButton>
+        </h:form>
+
+        <ui:repeat value="#{repository.allQuestions}" var="ask">
+            <div class="border-1">
+                <h:link styleClass="" outcome="profile.xhtml" value="Author: #{ask.authorId}"></h:link>
+                <div>#{ask.question}</div>
+
             </div>
         </ui:repeat>
     </div>

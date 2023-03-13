@@ -1,6 +1,7 @@
 package cz.educanet.Askfm;
 
 import cz.educanet.Stock.Stock;
+import cz.educanet.gapminder.GapminderBean;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -85,6 +86,51 @@ public class Repository {
             user.setEmail(resultSet.getString(7));
             user.setEmail(resultSet.getString(8));
             return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void createQuestion(int target, int author, String question) {
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "INSERT INTO jews2.question(question, authorId, targetId, createdAt, updatedAt) " +
+                                "VALUES (?, ?, ?, ?, ?)");
+        ) {
+            pS.setString(1, question);
+            pS.setInt(2, author);
+            pS.setInt(3, target);
+            pS.setString(4, LocalDateTime.now().toString());
+            pS.setString(5, LocalDateTime.now().toString());
+            pS.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Question> getAllQuestions() {
+        ArrayList<Question> questions = new ArrayList<>();
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT q.questionId, question, answer, authorId, targetId, createdAt, updatedAt " +
+                                "FROM jews2.question q ");
+        ) {
+            ResultSet resultSet = pS.executeQuery();
+
+            while (resultSet.next()) {
+                Question q = new Question();
+                q.setQuestionId(resultSet.getInt(1));
+                q.setQuestion(resultSet.getString(2));
+                q.setAnswer(resultSet.getString(3));
+                q.setAuthorId(resultSet.getInt(4));
+                q.setTargetId(resultSet.getInt(5));
+                q.setCreatedAt(resultSet.getString(6));
+                q.setUpdatedAt(resultSet.getString(7));
+                questions.add(q);
+            }
+            return questions;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
