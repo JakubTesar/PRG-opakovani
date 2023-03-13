@@ -16,6 +16,7 @@ cz\educanet\QuickMath\UserQuick.class
 cz\educanet\Kchul_Zoo\ZooBean.class
 cz\educanet\CRM\Crm.class
 cz\educanet\TodoList\Task.class
+cz\educanet\Askfm\AskUser.class
 cz\educanet\Factorial\Pog.class
 cz\educanet\gapminder\GapminderBean.class
 cz\educanet\Factorial\Factorial.class
@@ -37,4 +38,5 @@ cz\educanet\gapminder\GapminderRepository.class
 cz\educanet\Kchul_Zoo\ZooService.class
 cz\educanet\QuickMath\Quickmath.class
 cz\educanet\Stock\Order.class
+cz\educanet\Askfm\AskUserBean.class
 cz\educanet\TeamBuilder\Main.class
