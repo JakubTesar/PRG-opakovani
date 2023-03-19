@@ -47,19 +47,18 @@
         <div>
             <h2>Ask somebody</h2>
         </div>
-        <h:form styleClass="w-25">
-            <h:outputLabel value="For"></h:outputLabel>
-            <h:selectOneMenu styleClass="form-select" value="#{question.targetId}">
-                <ui:repeat value="#{repository.allAskUsers}" var="asku">
-                    <f:selectItem itemValue="#{asku.userId}" itemLabel="#{asku.fullName}"/>
-                </ui:repeat>
-            </h:selectOneMenu>
-            <h:outputLabel styleClass="mt-3" value="Question"></h:outputLabel>
-            <h:inputText styleClass="form-control" value="#{question.question}"></h:inputText>
+        <h4>Users:</h4>
+        <ui:repeat value="#{repository.allAskUsers}" var="u">
+            <div class="card bg-dark rounded border-light " style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">User: #{u.fullName}</h5>
+                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="➡">
+                        <f:param name="userId" value="#{u.userId}"></f:param>
+                    </h:link>
+                </div>
+            </div>
+        </ui:repeat>
 
-            <h:commandButton styleClass="btn btn-success mt-3" value="Create question"
-                             action="#{repository.createQuestion(question.targetId,  question.question)}"></h:commandButton>
-        </h:form>
     </div>
         <ui:repeat value="#{repository.allQuestions}" var="ask">
             <div class="card bg-dark rounded border-light " style="width: 18rem;">

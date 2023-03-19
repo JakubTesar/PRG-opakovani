@@ -48,7 +48,13 @@
            #{repository.askUserByIdQParam.fullName}
            #{repository.askUserByIdQParam.bio}
        </div>
+        <h:form styleClass="w-25">
+            <h:outputLabel styleClass="mt-3" value="Question"></h:outputLabel>
+            <h:inputText styleClass="form-control" value="#{question.question}"></h:inputText>
 
+            <h:commandButton styleClass="btn btn-success mt-3" value="Create question"
+                             action="#{repository.createQuestion(service.IDParam,  question.question)}"></h:commandButton>
+        </h:form>
     </div>
 </h:body>
 </html>
