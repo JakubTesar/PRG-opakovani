@@ -60,13 +60,12 @@ public class Repository {
                 service.getLoginUser().setUpdatedAt(resultSet.getString(8));
                 service.getLoginUser().setLogged(true);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public AskUser getAskUserById() {
+    public AskUser getAskUserByIdQParam() {
         AskUser user = new AskUser();
         try (
                 Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
@@ -77,35 +76,56 @@ public class Repository {
         ) {
             pS.setInt(1, Integer.parseInt(service.getIDParam()));
             ResultSet resultSet = pS.executeQuery();
-            user.setUserId(Integer.parseInt(service.getIDParam()));
-            user.setEmail(resultSet.getString(2));
-            user.setHashedPassword(resultSet.getString(3));
-            user.setFullName(resultSet.getString(4));
-            user.setBio(resultSet.getString(5));
-            user.setPicture(resultSet.getInt(6));
-            user.setEmail(resultSet.getString(7));
-            user.setEmail(resultSet.getString(8));
+            while (resultSet.next()) {
+                user.setUserId(Integer.parseInt(service.getIDParam()));
+                user.setEmail(resultSet.getString(2));
+                user.setHashedPassword(resultSet.getString(3));
+                user.setFullName(resultSet.getString(4));
+                user.setBio(resultSet.getString(5));
+                user.setPicture(resultSet.getInt(6));
+                user.setCreatedAt(resultSet.getString(7));
+                user.setUpdatedAt(resultSet.getString(8));
+            }
             return user;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void createQuestion(int target, int author, String question) {
-        try (
-                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
-                PreparedStatement pS = c.prepareStatement(
-                        "INSERT INTO jews2.question(question, authorId, targetId, createdAt, updatedAt) " +
-                                "VALUES (?, ?, ?, ?, ?)");
-        ) {
-            pS.setString(1, question);
-            pS.setInt(2, author);
-            pS.setInt(3, target);
-            pS.setString(4, LocalDateTime.now().toString());
-            pS.setString(5, LocalDateTime.now().toString());
-            pS.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+    public void createQuestion(int target, String question) {
+        if (service.getLoginUser().isLogged()) {
+            try (
+                    Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                    PreparedStatement pS = c.prepareStatement(
+                            "INSERT INTO jews2.question(question,authorId, targetId, createdAt, updatedAt) " +
+                                    "VALUES (?, ?, ?, ?,?)");
+            ) {
+                pS.setString(1, question);
+                pS.setInt(2, service.getLoginUser().getUserId());
+                pS.setInt(3, target);
+                pS.setString(4, LocalDateTime.now().toString());
+                pS.setString(5, LocalDateTime.now().toString());
+                pS.execute();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try (
+                    Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                    PreparedStatement pS = c.prepareStatement(
+                            "INSERT INTO jews2.question(question, targetId, createdAt, updatedAt) " +
+                                    "VALUES (?, ?, ?, ?)");
+            ) {
+                pS.setString(1, question);
+                pS.setInt(2, target);
+                pS.setString(3, LocalDateTime.now().toString());
+                pS.setString(4, LocalDateTime.now().toString());
+                pS.execute();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -135,4 +155,101 @@ public class Repository {
             throw new RuntimeException(e);
         }
     }
+
+    public AskUser getAskUserById(int Id) {
+        AskUser user = new AskUser();
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT u.userId, email, hashedPassword, fullName, bio, picture, createdAt, updatedAt " +
+                                "FROM jews2.user u " +
+                                "WHERE u.userId = ? ");
+        ) {
+            pS.setInt(1, Id);
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                user.setUserId(Id);
+                user.setEmail(resultSet.getString(2));
+                user.setHashedPassword(resultSet.getString(3));
+                user.setFullName(resultSet.getString(4));
+                user.setBio(resultSet.getString(5));
+                user.setPicture(resultSet.getInt(6));
+                user.setCreatedAt(resultSet.getString(7));
+                user.setUpdatedAt(resultSet.getString(8));
+            }
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<AskUser> getAllAskUsers(){
+        ArrayList<AskUser> askUsers = new ArrayList<>();
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT u.userId, email, hashedPassword, fullName, bio, picture, createdAt, updatedAt " +
+                                "FROM jews2.user u ");
+        ) {
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                AskUser user = new AskUser();
+                user.setUserId(resultSet.getInt(1));
+                user.setEmail(resultSet.getString(2));
+                user.setHashedPassword(resultSet.getString(3));
+                user.setFullName(resultSet.getString(4));
+                user.setBio(resultSet.getString(5));
+                user.setPicture(resultSet.getInt(6));
+                user.setCreatedAt(resultSet.getString(7));
+                user.setUpdatedAt(resultSet.getString(8));
+                askUsers.add(user);
+            }
+            return askUsers;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Question getQuestionByIDParam() {
+        Question question = new Question();
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT q.questionId, question, answer, authorId, targetId, createdAt, updatedAt " +
+                                "FROM jews2.question q " +
+                                "WHERE q.questionId = ? ");
+        ) {
+            pS.setInt(1, Integer.parseInt(service.getQuestionIDParam()));
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                question.setQuestionId(Integer.parseInt(service.getQuestionIDParam()));
+                question.setQuestion(resultSet.getString(2));
+                question.setAnswer(resultSet.getString(3));
+                question.setAuthorId(resultSet.getInt(4));
+                question.setTargetId(resultSet.getInt(5));
+                question.setCreatedAt(resultSet.getString(6));
+                question.setUpdatedAt(resultSet.getString(7));
+            }
+            return question;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void answer(String answer){
+        try (
+                Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "UPDATE  jews2.question " +
+                                "SET  answer = ?, updatedAt = ?" +
+                                "WHERE questionId = ?");) {
+            preparedStatement.setInt(3, Integer.parseInt(service.getQuestionIDParam()));
+            preparedStatement.setString(1, answer);
+            preparedStatement.setString(2, LocalDateTime.now().toString());
+            Boolean ok = preparedStatement.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

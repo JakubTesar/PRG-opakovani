@@ -16,7 +16,7 @@
             <h:outputLabel value="Password"></h:outputLabel>
             <h:inputText type="password" styleClass="form-control" value="#{askUser.hashedPassword}"></h:inputText>
             <h:commandButton styleClass="btn btn-info m-1" value="Login"
-                             action="#{usersBean.login(userAuthen.hashedPassword, userAuthen.email)}">
+                             action="#{repository.login(askUser.hashedPassword, askUser.email)}">
             </h:commandButton>
         </h:form>
 

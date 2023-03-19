@@ -27,9 +27,7 @@
                                      action="#{usersBean.logout()}"></h:commandButton>
                 </h:form>
                 <li class="nav-item">
-                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="👤">
-                        <f:param name="userId" value="#{service.loginUser.userId}"></f:param>
-                    </h:link>
+                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="👤"></h:link>
                 </li>
                 <li class="mx-3 d-flex align-items-center">
                     <c:if test="#{service.loginUser.userId == 0}">
@@ -42,13 +40,20 @@
             </ul>
         </div>
     </nav>
-
     <div class="m-5 d-flex flex-wrap gap-3">
-       <div>
-           #{repository.askUserByIdQParam.fullName}
-           #{repository.askUserByIdQParam.bio}
-       </div>
-
+        <div class="w-100">
+            <div>
+                <h2>Answer</h2>
+                <div>Question: #{repository.questionByIDParam.question}</div>
+            </div>
+            <h:form styleClass="w-25">
+                <h:outputLabel styleClass="mt-3" value="Answer"></h:outputLabel>
+                <h:inputText styleClass="form-control" value="#{question.answer}"></h:inputText>
+                <h:commandButton styleClass="btn btn-success mt-3" value="Answer question"
+                                 action="#{repository.answer(question.answer)}">
+                    <f:param name="questionId" value="#{service.questionIDParam}"></f:param>
+                </h:commandButton> </h:form>
+        </div>
     </div>
 </h:body>
 </html>

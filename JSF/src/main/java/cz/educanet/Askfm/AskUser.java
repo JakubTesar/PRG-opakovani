@@ -61,7 +61,7 @@ public class AskUser implements Serializable {
         this.bio = bio;
     }
 
-    public int isPicture() {
+    public int getPicture() {
         return picture;
     }
 
