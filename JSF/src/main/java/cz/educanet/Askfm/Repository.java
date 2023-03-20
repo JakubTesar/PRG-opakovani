@@ -3,10 +3,12 @@ package cz.educanet.Askfm;
 import cz.educanet.Stock.Stock;
 import cz.educanet.gapminder.GapminderBean;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -157,33 +159,39 @@ public class Repository {
     }
 
     public AskUser getAskUserById(int Id) {
-        AskUser user = new AskUser();
-        try (
-                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
-                PreparedStatement pS = c.prepareStatement(
-                        "SELECT u.userId, email, hashedPassword, fullName, bio, picture, createdAt, updatedAt " +
-                                "FROM jews2.user u " +
-                                "WHERE u.userId = ? ");
-        ) {
-            pS.setInt(1, Id);
-            ResultSet resultSet = pS.executeQuery();
-            while (resultSet.next()) {
-                user.setUserId(Id);
-                user.setEmail(resultSet.getString(2));
-                user.setHashedPassword(resultSet.getString(3));
-                user.setFullName(resultSet.getString(4));
-                user.setBio(resultSet.getString(5));
-                user.setPicture(resultSet.getInt(6));
-                user.setCreatedAt(resultSet.getString(7));
-                user.setUpdatedAt(resultSet.getString(8));
+        if (Id == 0) {
+            AskUser anonym = new AskUser();
+            anonym.setFullName("Anonym");
+            return anonym;
+        } else {
+            AskUser user = new AskUser();
+            try (
+                    Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                    PreparedStatement pS = c.prepareStatement(
+                            "SELECT u.userId, email, hashedPassword, fullName, bio, picture, createdAt, updatedAt " +
+                                    "FROM jews2.user u " +
+                                    "WHERE u.userId = ? ");
+            ) {
+                pS.setInt(1, Id);
+                ResultSet resultSet = pS.executeQuery();
+                while (resultSet.next()) {
+                    user.setUserId(Id);
+                    user.setEmail(resultSet.getString(2));
+                    user.setHashedPassword(resultSet.getString(3));
+                    user.setFullName(resultSet.getString(4));
+                    user.setBio(resultSet.getString(5));
+                    user.setPicture(resultSet.getInt(6));
+                    user.setCreatedAt(resultSet.getString(7));
+                    user.setUpdatedAt(resultSet.getString(8));
+                }
+                return user;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-            return user;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    public ArrayList<AskUser> getAllAskUsers(){
+    public ArrayList<AskUser> getAllAskUsers() {
         ArrayList<AskUser> askUsers = new ArrayList<>();
         try (
                 Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
@@ -235,7 +243,8 @@ public class Repository {
             throw new RuntimeException(e);
         }
     }
-    public void answer(String answer){
+
+    public void answer(String answer) {
         try (
                 Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
                 PreparedStatement preparedStatement = connection.prepareStatement(
@@ -249,6 +258,87 @@ public class Repository {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Question> getAllQuestionsByTarget() {
+        ArrayList<Question> questions = new ArrayList<>();
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT  q.questionId, question, answer, authorId, targetId, createdAt, updatedAt " +
+                                "FROM jews2.question q " +
+                                "WHERE targetId = ?");
+        ) {
+            pS.setInt(1, Integer.parseInt(service.getIDParam()));
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                Question question = new Question();
+                question.setQuestionId(resultSet.getInt(1));
+                question.setQuestion(resultSet.getString(2));
+                question.setAnswer(resultSet.getString(3));
+                question.setAuthorId(resultSet.getInt(4));
+                question.setTargetId(resultSet.getInt(5));
+                question.setCreatedAt(resultSet.getString(6));
+                question.setUpdatedAt(resultSet.getString(7));
+                questions.add(question);
+            }
+            return questions;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int getLikesFromQuestion(int questionId) throws SQLException {
+        int count = 0;
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT COUNT(ql.questionId) " +
+                                "FROM jews2.question_like ql " +
+                                "WHERE ql.questionId = ?");
+        ) {
+            pS.setInt(1, questionId);
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            return count;
+        }
+
+    }
+
+    public void giveLike(int questionId) throws IOException, SQLException {
+        if (service.getLoginUser().isLogged()) {
+            int id = 0;
+            try (
+                    Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                    PreparedStatement pS = c.prepareStatement(
+                            "SELECT ql.userId " +
+                                    "FROM jews2.question_like ql " +
+                                    "WHERE ql.questionId = ? AND ql.userId = ?");
+            ) {
+                pS.setInt(1, questionId);
+                pS.setInt(2, service.getLoginUser().getUserId());
+                ResultSet resultSet = pS.executeQuery();
+                while (resultSet.next()) {
+                    id = resultSet.getInt(1);
+                }
+            }
+            if (id != service.getLoginUser().getUserId()) {
+                try (
+                        Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                        PreparedStatement pS = c.prepareStatement(
+                                "INSERT INTO jews2.question_like(questionId, userId) " +
+                                        "VALUES (?, ?) ");
+                ) {
+                    pS.setInt(1, questionId);
+                    pS.setInt(2, service.getLoginUser().getUserId());
+                    pS.execute();
+                }
+            }
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
         }
     }
 

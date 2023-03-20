@@ -7,27 +7,35 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
 </h:head>
-<h:body styleClass="bg-dark text-white">
-    <nav class="navbar navbar-expand-lg  navbar-dark bg-gray text-white mb-5 mx-5">
+
+<h:body styleClass="bg-darkerrrr text-white">
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark text-white mb-5 px-5 border-white border-bottom p-3">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto gap-3">
-                <li class="nav-item active">
-                    <h:link styleClass="btn btn-primary " outcome="register.xhtml" value="Register"></h:link>
+
+                <li class="nav-item d-flex align-items-center">
+                    <h:link styleClass="text-decoration-none text-white" outcome="index.xhtml" value="Home">
+                        <f:param name="userId" value="#{service.loginUser.userId}"></f:param>
+                    </h:link>
                 </li>
-                <li class="nav-item">
-                    <h:link styleClass="btn btn-primary " outcome="login.xhtml" value="Login"></h:link>
+                <li class="nav-item d-flex align-items-center">
+                    <h:link styleClass="text-decoration-none text-white " outcome="register.xhtml" value="Register"></h:link>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                    <h:link styleClass="text-decoration-none text-white " outcome="login.xhtml" value="Login"></h:link>
                 </li>
                 <h:form>
                     <h:commandButton styleClass="btn btn-danger" value="Logout"
                                      action="#{usersBean.logout()}"></h:commandButton>
                 </h:form>
                 <li class="nav-item">
-                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="👤">
+                    <h:link styleClass="btn bg-transparent" outcome="profile.xhtml" value="👤">
                         <f:param name="userId" value="#{service.loginUser.userId}"></f:param>
                     </h:link>
                 </li>
@@ -39,47 +47,63 @@
                         #{repository.getAskUserById(service.loginUser.userId).fullName}
                     </c:if>
                 </li>
+
             </ul>
         </div>
     </nav>
     <div class="m-5 d-flex flex-wrap gap-3">
-    <div class="w-100">
-        <div>
-            <h2>Ask somebody</h2>
+        <div class="w-100">
+            <div>
+                <h2>Ask somebody</h2>
+            </div>
+            <h4>Users:</h4>
         </div>
-        <h4>Users:</h4>
-        <ui:repeat value="#{repository.allAskUsers}" var="u">
-            <div class="card bg-dark rounded border-light " style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">User: #{u.fullName}</h5>
-                    <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="➡">
-                        <f:param name="userId" value="#{u.userId}"></f:param>
-                    </h:link>
-                </div>
+        <div class="container ">
+            <div class="d-flex flex-wrap border-white border-bottom mb-5 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 gutters-sm">
+                <ui:repeat value="#{repository.allAskUsers}" var="u">
+                    <div class="col mb-3">
+                        <div class="card bg-dark">
+                            <img src="https://www.bootdey.com/image/340x120/0541a3/000000" alt="Cover" class="card-img-top"/>
+                            <div class="card-body text-center">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                     style="width:100px;margin-top:-65px" alt="User"
+                                     class="img-fluid img-thumbnail rounded-circle border-0 mb-3"></img>
+                                <h5 class="card-title">#{u.fullName}</h5>
+                            </div>
+                            <div class="card-footer">
+                                <h:link styleClass="btn btn-success" outcome="profile.xhtml" value="➡">
+                                    <f:param name="userId" value="#{u.userId}"></f:param>
+                                </h:link>
+                                <button class="btn btn-light btn-sm bg-white has-icon ml-2" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-message-circle">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ui:repeat>
             </div>
-        </ui:repeat>
-
-    </div>
-        <ui:repeat value="#{repository.allQuestions}" var="ask">
-            <div class="card bg-dark rounded border-light " style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">From:
-                        <c:if test="#{repository.getAskUserById(ask.authorId).userId == null}">
-                            Annonym
-                        </c:if>
-                        <c:if test="#{repository.getAskUserById(ask.authorId).userId != null}">
+        </div>
+        <div class="d-flex flex-wrap gap-4 mt-5">
+            <ui:repeat value="#{repository.allQuestions}" var="ask">
+                <div class="card bg-dark rounded border-light " style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">From:
                             #{repository.getAskUserById(ask.authorId).fullName}
-                        </c:if>
-                    </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">To: #{repository.getAskUserById(ask.targetId).fullName}</h6>
-                    <p class="card-text">Question: #{ask.question}</p>
-                    <p class="card-text">Answer: #{ask.answer}</p>
-                    <h:link styleClass="btn btn-success" outcome="answer.xhtml" value="➡">
-                        <f:param name="questionId" value="#{ask.questionId}"></f:param>
-                    </h:link>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">To: #{repository.getAskUserById(ask.targetId).fullName}</h6>
+                        <p class="card-text">Question: #{ask.question}</p>
+                        <p class="card-text">Answer: #{ask.answer}</p>
+                        <h:link styleClass="btn btn-success" outcome="answer.xhtml" value="➡">
+                            <f:param name="questionId" value="#{ask.questionId}"></f:param>
+                        </h:link>
+                    </div>
                 </div>
-            </div>
-        </ui:repeat>
+            </ui:repeat>
+        </div>
     </div>
 </h:body>
 </html>
