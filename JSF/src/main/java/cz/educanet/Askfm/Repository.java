@@ -244,21 +244,24 @@ public class Repository {
         }
     }
 
-    public void answer(String answer) {
-        try (
-                Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
-                PreparedStatement preparedStatement = connection.prepareStatement(
-                        "UPDATE  jews2.question " +
-                                "SET  answer = ?, updatedAt = ?" +
-                                "WHERE questionId = ?");) {
-            preparedStatement.setInt(3, Integer.parseInt(service.getQuestionIDParam()));
-            preparedStatement.setString(1, answer);
-            preparedStatement.setString(2, LocalDateTime.now().toString());
-            Boolean ok = preparedStatement.execute();
+    public void answer(String answer) throws IOException, SQLException {
+        if (service.getLoginUser().isLogged() && service.getLoginUser().getUserId() == Integer.parseInt(service.getQuestionIDParam())) {
+            try (
+                    Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
+                    PreparedStatement preparedStatement = connection.prepareStatement(
+                            "UPDATE jews2.question " +
+                                    "SET answer = ?, updatedAt = ?" +
+                                    "WHERE questionId = ?");) {
+                preparedStatement.setInt(3, Integer.parseInt(service.getQuestionIDParam()));
+                preparedStatement.setString(1, answer);
+                preparedStatement.setString(2, LocalDateTime.now().toString());
+                Boolean ok = preparedStatement.execute();
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            }
+        } else{
+            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
         }
+
     }
 
     public ArrayList<Question> getAllQuestionsByTarget() {

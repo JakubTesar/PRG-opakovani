@@ -89,17 +89,17 @@
                         <h6 class="card-subtitle mb-2 text-muted">To: #{repository.getAskUserById(ask.targetId).fullName}</h6>
                         <p class="card-text">Question: #{ask.question}</p>
                         <p class="card-text">Answer: #{ask.answer}</p>
-                        <div class="d-flex justify-content-around">
-                            <h:link styleClass="btn btn-success" outcome="answer.xhtml" value="➡">
+                        <div class="d-flex justify-content-between">
+                            <h:link styleClass="btn" outcome="answer.xhtml" value="➡">
                                 <f:param name="questionId" value="#{ask.questionId}"></f:param>
                             </h:link>
                             <h:form>
-                                <h:commandButton styleClass="btn btn-success" value="👍🏿"
+                                <h:commandButton styleClass="btn " value="👍🏿"
                                                  action="#{repository.giveLike(ask.questionId)}">
                                     <f:param name="userId" value="#{service.IDParam}"></f:param>
                                 </h:commandButton>
                             </h:form>
-                            <div class="d-flex align-items-center bg-darker2">#{repository.getLikesFromQuestion(ask.questionId)}</div>
+                            <div class="d-flex me-5 align-items-center font-size-wow" >#{repository.getLikesFromQuestion(ask.questionId)}</div>
                         </div>
 
                     </div>
