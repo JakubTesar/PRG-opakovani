@@ -27,18 +27,26 @@
                     <h:link styleClass="text-decoration-none text-white " outcome="register.xhtml"
                             value="Register"></h:link>
                 </li>
-                <li class="nav-item d-flex align-items-center">
-                    <h:link styleClass="text-decoration-none text-white " outcome="login.xhtml" value="Login"></h:link>
-                </li>
-                <h:form>
-                    <h:commandButton styleClass="btn btn-danger" value="Logout"
-                                     action="#{usersBean.logout()}"></h:commandButton>
-                </h:form>
-                <li class="nav-item">
-                    <h:link styleClass="btn bg-transparent" outcome="profile.xhtml" value="👤">
+                <c:if test="#{!service.loginUser.logged}">
+                    <li class="nav-item d-flex align-items-center">
+                        <h:link styleClass="text-decoration-none text-white " outcome="login.xhtml"
+                                value="Login"></h:link>
+                    </li>
+                </c:if>
+                <c:if test="#{service.loginUser.logged}">
+                    <h:form>
+                        <h:commandButton styleClass="btn btn-danger" value="Logout"
+                                         action="#{service.logout()}"></h:commandButton>
                         <f:param name="userId" value="#{service.loginUser.userId}"></f:param>
-                    </h:link>
-                </li>
+                    </h:form>
+
+                    <li class="nav-item">
+                        <h:link styleClass="btn bg-transparent" outcome="profile.xhtml" value="👤">
+                            <f:param name="userId" value="#{service.loginUser.userId}"></f:param>
+                        </h:link>
+                    </li>
+                </c:if>
+
                 <li class="mx-3 d-flex align-items-center">
                     <c:if test="#{service.loginUser.userId == 0}">
                         Annonym
@@ -99,9 +107,15 @@
                                     <f:param name="userId" value="#{service.IDParam}"></f:param>
                                 </h:commandButton>
                             </h:form>
-                            <div class="d-flex me-5 align-items-center font-size-wow" >#{repository.getLikesFromQuestion(ask.questionId)}</div>
+                            <div class="d-flex me-5 align-items-center font-size-wow">#{repository.getLikesFromQuestion(ask.questionId)}</div>
+                            <c:if test="#{service.loginUser.userId == service.IDParam}"><h:form>
+                                <h:commandButton styleClass="btn btn-danger " value="🗑️"
+                                                 action="#{repository.deleteQuestion(ask.questionId)}">
+                                    <f:param name="userId" value="#{service.IDParam}"></f:param>
+                                </h:commandButton>
+                            </h:form>
+                            </c:if>
                         </div>
-
                     </div>
                 </div>
             </ui:repeat>

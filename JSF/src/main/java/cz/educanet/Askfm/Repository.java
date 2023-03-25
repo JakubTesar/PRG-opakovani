@@ -6,6 +6,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.Part;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class Repository {
     @Inject
     private Service service;
 
-    public void createUserAsk(String name, String password, String email, String bio, int picture) {
+    public void createUserAsk(String name, String password, String email, String bio, int picture, Part file) throws MessagingException, IOException {
         try (
                 Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
                 PreparedStatement pS = c.prepareStatement(
@@ -38,6 +40,7 @@ public class Repository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+      //  service.uploadFile(file, 1);
     }
 
     public void login(String password, String email) {
@@ -245,7 +248,7 @@ public class Repository {
     }
 
     public void answer(String answer) throws IOException, SQLException {
-        if (service.getLoginUser().isLogged() && service.getLoginUser().getUserId() == Integer.parseInt(service.getQuestionIDParam())) {
+        if (service.getLoginUser().isLogged()) {
             try (
                     Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3309/stock_market?user=root&password=heslo");
                     PreparedStatement preparedStatement = connection.prepareStatement(
@@ -258,7 +261,7 @@ public class Repository {
                 Boolean ok = preparedStatement.execute();
 
             }
-        } else{
+        } else {
             FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
         }
 
@@ -342,6 +345,46 @@ public class Repository {
             }
         } else {
             FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+        }
+    }
+
+    public boolean canSeeAnswer(int questionId) throws SQLException {
+        boolean bool = false;
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "SELECT q.targetId " +
+                                "FROM jews2.question q " +
+                                "WHERE q.questionId = ?");
+        ) {
+            pS.setInt(1, questionId);
+            ResultSet resultSet = pS.executeQuery();
+            while (resultSet.next()) {
+                if (service.getLoginUser().getUserId() == resultSet.getInt(1))
+                    bool = true;
+            }
+            return bool;
+        }
+    }
+
+    public void deleteQuestion(int questionId) throws SQLException {
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "DELETE FROM jews2.question_like " +
+                                "WHERE question_like.questionId = ?;")
+        ) {
+            pS.setInt(1, questionId);
+            pS.executeQuery();
+        }
+        try (
+                Connection c = DriverManager.getConnection("jdbc:mariadb://localhost:3309/jews2?user=root&password=heslo");
+                PreparedStatement pS = c.prepareStatement(
+                        "DELETE FROM jews2.question " +
+                                "WHERE question.questionId = ?;")
+        ) {
+            pS.setInt(1, questionId);
+            pS.executeQuery();
         }
     }
 

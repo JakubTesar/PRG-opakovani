@@ -2,6 +2,8 @@ package cz.educanet.Askfm;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
+import jakarta.servlet.http.Part;
+
 import jdk.jfr.Name;
 
 import java.io.Serializable;
@@ -20,6 +22,16 @@ public class AskUser implements Serializable {
     private String updatedAt;
     private boolean isLogged;
 
+    private Part file;
+
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
 
     public int getUserId() {
         return userId;
